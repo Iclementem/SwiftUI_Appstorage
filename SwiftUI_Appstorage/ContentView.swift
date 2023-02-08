@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var currentUserName: String?
+    
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text(currentUserName ?? "No hay información de usuario.")
+            
+            if let username = currentUserName {
+                Text(username)
+            }
+            
+            Button ("Guardar") {
+                let username = "Dunan"
+                currentUserName = username
+                UserDefaults.standard.set(username, forKey: "username")
+            }
+        }.onAppear{
+            currentUserName = UserDefaults.standard.string(forKey: "username")
         }
         .padding()
     }
